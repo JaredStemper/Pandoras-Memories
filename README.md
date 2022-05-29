@@ -5,11 +5,11 @@ Project to create a slideshow of pictures and videos on 4 sides of a cube with a
 Dedicated to a mother that never stopped trying for her kids. Thanks mum.
 
 ## Current Features:
-Modes:
+- Modes:
   - Local-storage picture slideshow
 
 ## Planned Features:
-Modes:
+- Modes:
   - Video slideshow
   - Google folder slideshow 
 - Slideshow/Modes can be controlled from buttons on board
