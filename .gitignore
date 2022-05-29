@@ -1,5 +1,7 @@
 env/
-Misc./
 **/__pycache__
+Resources/log.log
+Resources/master*
+Resources/test.py
 client_secrets.json
 credentials.json

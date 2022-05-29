@@ -3,7 +3,7 @@ import logging
 from core import media
 
 def init():
-	"""Starts the logger and parse the command line"""
+	"""Starts the logger"""
 	
 	logging.basicConfig(filename="Misc./log.log",
 						format='%(asctime)s %(message)s',
