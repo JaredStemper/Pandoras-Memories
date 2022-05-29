@@ -1,0 +1,8 @@
+logging
+apiclient
+oauth2client
+httplib2
+argparse
+random
+os
+pyglet
