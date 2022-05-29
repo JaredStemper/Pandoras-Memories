@@ -1,5 +1,6 @@
 env/
 **/__pycache__
+.vscode/
 Resources/log.log
 Resources/master*
 Resources/test.py
