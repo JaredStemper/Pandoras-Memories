@@ -11,4 +11,4 @@ Dedicated to a mother that never stopped trying for her kids. Thanks mum.
   - Google folder slideshow 
 - Slideshow/Modes can be controlled from buttons on board
 - Grabs photos dynamically from a Google Drive folder
-- controlled through remote control or buttons on hardware
+- Controlled through remote control or buttons on hardware
