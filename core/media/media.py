@@ -53,6 +53,15 @@ def get_media_paths(input_dir=os.getcwd()):
                 paths.append(path)
     return paths
 
+def get_multimedia_paths(input_dir=os.getcwd()):
+    paths = []
+    for root, dirs, files in os.walk(input_dir, topdown=True):
+        for file in sorted(files):
+            if file.endswith(('jpg', 'png', 'mp4', 'gif')):
+                path = os.path.abspath(os.path.join(root, file))
+                paths.append(path)
+    return paths
+
 def get_scale(window, image):
     if image.width > image.height:
         scale = float(window.width) / image.width
@@ -68,9 +77,9 @@ def get_video_size(width, height, sample_aspect):
     else:
         return width, height
 
-def runPictureSlideshow(window):
+def runPictureSlideshow(window, logger=None):
     image_paths = get_image_paths()
-    # random.shuffle(image_paths)
+    # random.shuffle(image_paths) TODO: having a set list would be useful for future scrolling backwards/forwards
     img = pyglet.image.load(random.choice(image_paths))
 
     sprite = pyglet.sprite.Sprite(img)
@@ -82,7 +91,7 @@ def runPictureSlideshow(window):
         
     pyglet.clock.schedule_interval(update_image, 6.0, sprite, image_paths, window)
     
-def runVideoSlideshow(window):
+def runVideoSlideshow(window, logger=None):
     media_paths = get_media_paths()
     random.shuffle(media_paths)
 
@@ -115,32 +124,33 @@ def runVideoSlideshow(window):
         # key "p" get press
         if symbol == pyglet.window.key.P:
             
-            # printing the message
-            print("Key : P is pressed")
+            # logging input
+            if logger:
+                logger.info("Key: 'P' is pressed")
             
             # pause the video
             player.pause()
             
             # printing message
             print("Video is paused")
-            
-            
         # key "r" get press
         if symbol == pyglet.window.key.R:
             
-            # printing the message
-            print("Key : R is pressed")
+            # logging input
+            if logger:
+                logger.info("Key: 'R' is pressed")
             
             # resume the video
             player.play()
             
             # printing message
             print("Video is resumed")
-                # key "q" gets pressed
+        # key "q" gets pressed
         if symbol == pyglet.window.key.Q:
             
-            # printing the message
-            print("Key : Q is pressed")
+            # logging input
+            if logger:
+                logger.info("Key: 'Q' is pressed")
             
             # pause and dump resources
             player.pause()
@@ -153,28 +163,39 @@ def runVideoSlideshow(window):
     
     return player
 
-def runPicAndVidSlideshow(window):
-    media_paths = get_media_paths()
-    random.shuffle(media_paths)
+def runPicAndVidSlideshow(window, logger=None):
+    # multimedia_paths = get_multimedia_paths()
+    multimedia_paths = get_multimedia_paths()
+    print(multimedia_paths)
+    # random.shuffle(multimedia_paths)
 
     player = pyglet.media.Player()
-    source = pyglet.media.StreamingSource()
+    # source = pyglet.media.StreamingSource()
 
-    for media in media_paths:
+    for media in multimedia_paths:
         sourceMedia = pyglet.media.load(media)
         player.queue(sourceMedia)
+
+    track_eos = 1
+
+    def update_eosTracker(dt):
+        nonlocal track_eos
+        nonlocal player
+
+        print("\tupdates comin through")
+        track_eos = 1
+        player.next_source() #automatically sets loop to False
+        window.flip()
 
     # on draw event
     @window.event
     def on_draw():
-        
         # clear the window
         window.clear()
         
         # if player source exist
         # and video format exist
         if player.source and player.source.video_format:
-            
             # get the texture of video and
             # make surface to display on the screen
             player.get_texture().blit(0, 0)
@@ -182,36 +203,72 @@ def runPicAndVidSlideshow(window):
     # key press event	
     @window.event
     def on_key_press(symbol, modifier):
-
         # key "p" get press
         if symbol == pyglet.window.key.P:
             
-            # printing the message
-            print("Key : P is pressed")
+            # logging input
+            if logger:
+                logger.info("Key: 'P' is pressed")
             
             # pause the video
             player.pause()
             
             # printing message
             print("Video is paused")
-            
-            
         # key "r" get press
         if symbol == pyglet.window.key.R:
             
-            # printing the message
-            print("Key : R is pressed")
+            # logging input
+            if logger:
+                logger.info("Key: 'R' is pressed")
             
             # resume the video
             player.play()
             
             # printing message
             print("Video is resumed")
-                # key "q" gets pressed
+        # key "n" get press
+        if symbol == pyglet.window.key.N:
+            # logging input
+            if logger:
+                logger.info("Key: 'N' is pressed")
+            
+            # play the next media source
+            player.next_source()
+            
+            #if new source is an image, loop for 6 seconds
+            if player.source == None:
+                player.pause()
+                player.delete()
+                pyglet.app.exit()
+            # elif player.source.duration == 0.04:
+            #     #NOTE: pyglet gives images a duration of 0.04 and a audio_format of None type (included to avoid potentially skipping GIF files)
+            #     print("this is an image")
+            #     player.loop = True
+            # else:
+            #     player.loop = False
+            
+            # printing message
+            print("Next video is played")
+        # key "b" go to previous source
+        if symbol == pyglet.window.key.B:
+            """Additional work required to implement since pyglet does not track previous sources used"""
+            
+            # logging input
+            if logger:
+                logger.info("Key: 'B' is pressed")
+            
+            # resume the video
+            # player.
+            
+            # printing message
+            print("Previous video is played")
+        # key "q" gets pressed
         if symbol == pyglet.window.key.Q:
             
-            # printing the message
-            print("Key : Q is pressed")
+            # logging input
+            if logger:
+                logger.info("Key: 'Q' is pressed")
             
             # pause and dump resources
             player.pause()
@@ -222,24 +279,44 @@ def runPicAndVidSlideshow(window):
             # printing message
             print("Video is ended, app is exited")
     
-    return player
+    @player.event
+    def on_eos():
+        #loop for 6 seconds if an image, continue to end of source otherwise
+        nonlocal track_eos
 
+        #NOTE: pyglet gives images a duration of 0.04 and a audio_format of None type (included to avoid potentially skipping GIF files)
+        # if player.source.audio_format != None and player.source.duration == 0.04:
+        if player.source == None:
+            player.delete()
+            pyglet.app.exit()
+        elif player.source.audio_format == None and player.source.duration == 0.04:
+            if (track_eos):
+                print("\timage comin through")
+                track_eos = 0
+                player.loop = True
+                pyglet.clock.schedule_once(update_eosTracker, 6.0)
+        else:
+            player.loop = False
+
+    return player
 
 def MainLoop(mode, logger=None):
     window = pyglet.window.Window(fullscreen=True)
+    # window.push_handlers(pyglet.windo .WindowEventLogger('Resources/winlog.log'))
 
     if (mode == "pictures"):
-        runPictureSlideshow(window)
+        runPictureSlideshow(window, logger)
     elif (mode == "videos"):
-        player = runVideoSlideshow(window)
+        player = runVideoSlideshow(window, logger)
         player.play()
     elif (mode == "picsAndVids"):
-        player = runPicAndVidSlideshow(window)
+        player = runPicAndVidSlideshow(window, logger)
         player.play()
     else:
         print("This is not a supported option at this time.")  
     
     pyglet.app.run()
+    player.delete()
     pyglet.app.exit()
     
     if logger:
@@ -248,5 +325,5 @@ def MainLoop(mode, logger=None):
 
 if __name__ == '__main__':
 	# MainLoop("pictures")
-	MainLoop("videos")
-	# MainLoop("picsAndVids")
+	# MainLoop("videos")
+	MainLoop("picsAndVids")
