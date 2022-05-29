@@ -1,11 +1,13 @@
+import argparse
 import logging
+import os
 
 from core import media
 
 def init():
 	"""Starts the logger"""
 	
-	logging.basicConfig(filename="Misc./log.log",
+	logging.basicConfig(filename="Resources/log.log",
 						format='%(asctime)s %(message)s',
 						filemode='a')
 	logger = logging.getLogger()
@@ -35,8 +37,14 @@ def init():
 def main():
 	logger = init()
 
+	# parser = argparse.ArgumentParser()
+	# parser.add_argument('dir', help='directory of images',
+	# 				nargs='?', default=os.getcwd())
+	# args = parser.parse_args()
+
+	modes = ["pictures","videos","picsAndVids"]
 	# Starts the main loop
-	media.media.MainLoop(logger)
+	media.media.MainLoop(modes[0], logger=logger)
 	# Core.MainLoop(*fullScreen, *isSlideshow)
 
 if __name__ == '__main__':
