@@ -172,10 +172,14 @@ def runPicAndVidSlideshow(window, logger=None):
     player = pyglet.media.Player()
     # source = pyglet.media.StreamingSource()
 
+    a = 0
     for media in multimedia_paths:
         sourceMedia = pyglet.media.load(media)
+        sourceMedia.info.title = "track #" + str(a)
+        a = a + 1
         player.queue(sourceMedia)
 
+    # player.source.info.title = "test"
     track_eos = 1
 
     def update_eosTracker(dt):
@@ -184,8 +188,15 @@ def runPicAndVidSlideshow(window, logger=None):
 
         print("\tupdates comin through")
         track_eos = 1
-        player.next_source() #automatically sets loop to False
-        window.flip()
+        currSrc = player.source
+        player.next_source() #sets loop to False by default
+        newSrc = player.source
+        
+        window.switch_to()
+        # window.flip()
+        # window.clear()
+        # player.texture.blit(0, 0)
+        # window.on_draw()
 
     # on draw event
     @window.event
@@ -241,10 +252,9 @@ def runPicAndVidSlideshow(window, logger=None):
                 player.pause()
                 player.delete()
                 pyglet.app.exit()
-            # elif player.source.duration == 0.04:
-            #     #NOTE: pyglet gives images a duration of 0.04 and a audio_format of None type (included to avoid potentially skipping GIF files)
-            #     print("this is an image")
-            #     player.loop = True
+            elif player.source.duration == 0.04:
+                #NOTE: pyglet gives images a duration of 0.04 and a audio_format of None type (included to avoid potentially skipping GIF files)
+                pyglet.clock.unschedule(update_eosTracker)
             # else:
             #     player.loop = False
             
@@ -301,7 +311,8 @@ def runPicAndVidSlideshow(window, logger=None):
     return player
 
 def MainLoop(mode, logger=None):
-    window = pyglet.window.Window(fullscreen=True)
+    # window = pyglet.window.Window(fullscreen=True)
+    window = pyglet.window.Window(width=640, height=480)
     # window.push_handlers(pyglet.windo .WindowEventLogger('Resources/winlog.log'))
 
     if (mode == "pictures"):
