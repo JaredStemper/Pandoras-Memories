@@ -28,3 +28,7 @@ Dedicated to a mother that never stopped trying for her kids. Thanks mum.
   - option to hide that bar (if touchscreen, it's already draggable)
 - Notes:
   - autoload metadata vs whole video? with carousel it makes sense to always preload
+
+# Shoutouts
+- Slick Slider
+  - Forked from [tommydunn](https://codepen.io/tommydunn), who forked from [digistate](https://codepen.io/digistate).
