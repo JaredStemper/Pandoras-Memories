@@ -4,6 +4,7 @@ Project to create a slideshow of pictures and videos on 4 sides of a cube.
 
 Dedicated to a mother that never stopped trying for her kids. Thanks mum.
 
+# Features
 ## Current Features:
 - Modes:
   - Local-storage picture slideshow
@@ -16,3 +17,14 @@ Dedicated to a mother that never stopped trying for her kids. Thanks mum.
 - Slideshow/Modes can be controlled from buttons on board
 - Grabs photos dynamically from a Google Drive folder
 - Controlled through remote control or buttons on hardware
+
+### TODO:
+- BUG:
+  - slides scroll after 5 seconds, whether or not a video slide has finished playing
+- access local files from directory (e.g. /home/Music/*)
+  - store online files into local cache 
+- controls on videos/pictures
+  - add slick-arrows, imitate CSS for slick-dots and put arrows on the same bar
+  - option to hide that bar (if touchscreen, it's already draggable)
+- Notes:
+  - autoload metadata vs whole video? with carousel it makes sense to always preload
