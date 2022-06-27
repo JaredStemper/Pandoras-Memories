@@ -18,67 +18,7 @@ function playPauseVideo(slick, control){
   player = currentSlide.find("iframe").get(0);
   startTime = currentSlide.data("video-start");
 
-  if (slideType === "vimeo") {
-    switch (control) {
-      case "play":
-        if ((startTime != null && startTime > 0 ) && !currentSlide.hasClass('started')) {
-          currentSlide.addClass('started');
-          postMessageToPlayer(player, {
-            "method": "setCurrentTime",
-            "value" : startTime
-          });
-        }
-        postMessageToPlayer(player, {
-          "method": "play",
-          "value" : 1
-        });
-        break;
-      case "pause":
-        postMessageToPlayer(player, {
-          "method": "pause",
-          "value": 1
-        });
-        break;
-    }
-  } else if (slideType === "youtube-sound") {
-    switch (control) {
-      case "play":
-        postMessageToPlayer(player, {
-          "event": "command",
-          // "func": "mute"
-        });
-        postMessageToPlayer(player, {
-          "event": "command",
-          "func": "playVideo"
-        });
-        break;
-      case "pause":
-        postMessageToPlayer(player, {
-          "event": "command",
-          "func": "pauseVideo"
-        });
-        break;
-    }
-  }  else if (slideType === "youtube") {
-    switch (control) {
-      case "play":
-        postMessageToPlayer(player, {
-          "event": "command",
-          "func": "mute"
-        });
-        postMessageToPlayer(player, {
-          "event": "command",
-          "func": "playVideo"
-        });
-        break;
-      case "pause":
-        postMessageToPlayer(player, {
-          "event": "command",
-          "func": "pauseVideo"
-        });
-        break;
-    }
-  } else if (slideType === "video") {
+  if (slideType === "video") {
     video = currentSlide.children("video").get(0);
     if (video != null) {
       if (control === "play"){
