@@ -1,8 +1,8 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
 import HelloWorld from "./components/HelloWorld.vue";
-// import LogoSVG from "./assets/evil-eye.svg";
-import LogoSVG from "./assets/logo.svg";
+import LogoSVG from "./assets/evil-eye.svg";
+// import LogoSVG from "./assets/logo.svg";
 </script>
 
 <template>
@@ -10,8 +10,8 @@ import LogoSVG from "./assets/logo.svg";
     <LogoSVG alt="Greek Eye logo" class="logo" />
 
     <div class="wrapper">
-      <!-- <HelloWorld msg="Pandora's Memories" /> -->
-      <HelloWorld msg="Slideshow Website" />
+      <HelloWorld msg="Pandora's Memories" />
+      <!-- <HelloWorld msg="Slideshow Website" /> -->
 
       <nav>
         <RouterLink to="/">Home</RouterLink>
