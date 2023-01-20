@@ -1,0 +1,111 @@
+misc
+    consider electron
+        executable; full screen chromium browser;
+    add typescript
+
+    yarn
+        x yarn add vue-slick-carousel
+            does not work with vue 3; abandoned
+        yarn add vue-slick
+            yarn add jquery
+            does not work with vue 3
+        yarn add vue-agile
+            noop
+        yarn add vue-awesome-swiper
+            yarn add swiper
+        yarn build
+        yarn dev
+    ;
+
+    vue
+        line break
+            <br />
+
+
+
+
+
+TODO:
+    use starting page to show flow of project?
+        on left:
+            svg of project image
+            large text for pandora's mems
+        on right:
+            about page listing of what this project is
+            explanation of usage
+
+            links to jared's media?
+
+        .
+        want home/about to have split screen of Helloworld on one left side and details on the right side
+        want slideshow to have info at the top
+        starting code for dynamically shifting between vertical split and info header at top and slideshow beneath is below
+    ;
+
+LaterTODO:
+    make sure that documentation is created for how to use tool
+        WelcomeItem -> DocumentationIcon
+    consider making sentimental message tab
+        1. put in text description of them saying something nice/personal to mom
+        2. short video of above
+    ;
+
+vue
+    pinia == statem mgmt library
+
+
+    Vue's reactive data binding and template syntax, which can make it easier to keep your UI in sync with the state of your application. You can use Vuex getters and computed properties to bind data to the UI and automatically update the UI whenever the data changes.
+
+    html
+        section of sentence is in code block
+            More instructions are available in <code>README.md</code>.
+        hyperlink
+            Vue’s <a target="_blank" href="https://vuejs.org/">official documentation</a> provides you with all information you need to get started.
+    helloworld.vue is a good example of passing input to a vue template
+
+
+
+
+
+#Example of dynamic header content 
+    from: https://forum.vuejs.org/t/use-different-header-footer-based-on-routes/57118/6
+        note that keep-alive cannot have more than one child component.
+
+        additional docs at: https://medium.com/scrumpy/dynamic-component-templates-with-vue-js-d9236ab183bb
+    <template>
+        <div>
+            <component :is="this.headerFooter.header"></component>
+            <slot/>
+            <component :is="this.headerFooter.footer"></component>
+        </div>
+    </template>
+
+    <script>
+    import HeaderHome from "../organisms/header/Home";
+    import HeaderLoggedIn from '../organisms/header/LoggedIn';
+    import BigFooter from "../organisms/footer/Big";
+    import MinimalFooter from '../organisms/footer/Minimal';
+
+    import store from "@/store"
+
+    export default {
+        name: "default_layout",
+    components: {
+            HeaderHome,
+            HeaderLoggedIn,
+            BigFooter,
+            MinimalFooter
+        },
+        computed: {
+            headerFooter() {
+                return store.getters['auth/isLoggedIn'] ? {
+                    header: HeaderLoggedIn,
+                    footer: BigFooter
+                } : {
+                    header: HeaderHome,
+                    footer: BigFooter
+                }
+            }
+        }
+    };
+    </script>
