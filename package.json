@@ -73,5 +73,6 @@
 		"vue3 enterprise starter",
 		"vue 3 enterprise starter"
 	],
-	"author": "richardevcom <hello@richardev.com> (https://richardev.com)"
+	"author": "JaredStemper <jaredstemper@gmail.com> (https://jaredstemper.com)",
+	"license": "MIT"
 }
