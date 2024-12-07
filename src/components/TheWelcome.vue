@@ -13,10 +13,7 @@ import SupportIcon from "./icons/IconSupport.vue";
       <DocumentationIcon />
     </template>
     <template #heading>About Pandora's Memories</template>
-
-    A digital tribute to family memories, inspired by a childhood memory box.
-    Explore our collection of photos and videos, and experience our special
-    rendition of "You Are My Sunshine."
+    A digital tribute to family memories, inspired by a childhood memory box. Explore our collection of photos and videos, and experience our special rendition of "You Are My Sunshine." Learn more about our project's story <RouterLink to="/about">here</RouterLink>.
   </WelcomeItem>
 
   <WelcomeItem>
@@ -24,11 +21,7 @@ import SupportIcon from "./icons/IconSupport.vue";
       <ToolingIcon />
     </template>
     <template #heading>Interactive Features</template>
-
-    Navigate through our family memories with our intuitive slideshow controls.
-    Watch videos, view photos, and experience our special recordings.
-    The interface is designed to be simple yet meaningful, just like the
-    original memory box that inspired it.
+    Navigate through our family memories with our intuitive slideshow controls. Watch videos, view photos, and experience our special recordings. The interface is designed to be simple yet meaningful, just like the original memory box that inspired it.
   </WelcomeItem>
 
   <WelcomeItem>
@@ -36,11 +29,7 @@ import SupportIcon from "./icons/IconSupport.vue";
       <EcosystemIcon />
     </template>
     <template #heading>Memory Collection</template>
-
-    Our memories are carefully curated from both local storage and Google Photos,
-    ensuring that our most precious moments are preserved and easily accessible.
-    The four-panel display rotates through different memory collections, each
-    telling its own story.
+    The memories collected here are pulled from the full history of our family- with every photo pulled in from talking with each family member. The four-panel display rotates through different memory collections, each telling its own story.
   </WelcomeItem>
 
   <WelcomeItem>
@@ -48,10 +37,7 @@ import SupportIcon from "./icons/IconSupport.vue";
       <CommunityIcon />
     </template>
     <template #heading>Family Harmony</template>
-
-    Experience our unique take on "You Are My Sunshine" - where each family member's
-    individual recording comes together to create a beautiful whole. It's our way of
-    showing that even when apart, we're always together in harmony.
+    Experience our unique take on "You Are My Sunshine" - where each family member's individual recording comes together to create a beautiful whole. It's our way of showing that even when apart, we're always (mostly) together in harmony.
   </WelcomeItem>
 
   <WelcomeItem>
@@ -59,10 +45,6 @@ import SupportIcon from "./icons/IconSupport.vue";
       <SupportIcon />
     </template>
     <template #heading>Dear Mom</template>
-
-    This project is our way of preserving and sharing our precious memories with you.
-    Unlike the original box that lost its recording to a curious toddler, these
-    memories are here to stay. Thank you for giving us so many beautiful moments
-    to remember. We love you!
+    This project is our way of preserving and sharing our precious memories with you. Unlike the original box that lost its recording to a curious toddler, these memories are here to stay. Thank you for giving us so many beautiful moments to remember. We love you!
   </WelcomeItem>
 </template>
