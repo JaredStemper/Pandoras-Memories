@@ -1,28 +1,28 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
+
+// Import all views including those in subdirectories
+const views = import.meta.glob('../views/**/*.vue')
+
+const generateRoute = (path) => {
+  // Extract name from path, removing .vue extension
+  const name = path.match(/\.\.\/views\/(.*)\.vue$/)[1].toLowerCase()
+  const segments = name.split('/')
+  
+  return {
+    // Create path based on file location
+    path: segments[segments.length - 1] === 'home' 
+      ? '/' 
+      : `/${segments.join('/')}`,
+    name: segments[segments.length - 1],
+    component: views[path]
+  }
+}
+
+const routes = Object.keys(views).map(generateRoute)
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: "/",
-      name: "home",
-      component: HomeView,
-    },
-    {
-      path: "/about",
-      name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import("../views/AboutView.vue"),
-    },
-    {
-      path: "/slideshow",
-      name: "slideshow",
-      component: () => import("../views/SlideshowView.vue"),
-    },
-  ],
+  routes
 });
 
 export default router;

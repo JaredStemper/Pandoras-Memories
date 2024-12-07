@@ -13,9 +13,12 @@
 		"lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
 	},
 	"dependencies": {
+		"@fortawesome/fontawesome-svg-core": "^6.7.1",
+		"@fortawesome/free-solid-svg-icons": "^6.7.1",
+		"@fortawesome/vue-fontawesome": "^3.0.8",
 		"jquery": "^3.6.3",
 		"pinia": "^2.0.22",
-		"swiper": "^8.4.5",
+		"swiper": "^8.4.7",
 		"vue": "^3.2.39",
 		"vue-agile": "^2.0.0",
 		"vue-awesome-swiper": "^5.0.1",

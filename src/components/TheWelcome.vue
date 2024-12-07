@@ -12,82 +12,57 @@ import SupportIcon from "./icons/IconSupport.vue";
     <template #icon>
       <DocumentationIcon />
     </template>
-    <template #heading>Documentation</template>
+    <template #heading>About Pandora's Memories</template>
 
-    Click
-    <a target="_blank" href="https://vuejs.org/">here</a>
-    to get step-by-step instructions on how to use Pandora's Memories.
+    A digital tribute to family memories, inspired by a childhood memory box.
+    Explore our collection of photos and videos, and experience our special
+    rendition of "You Are My Sunshine."
   </WelcomeItem>
 
   <WelcomeItem>
     <template #icon>
       <ToolingIcon />
     </template>
-    <template #heading>Tooling</template>
+    <template #heading>Interactive Features</template>
 
-    This project is served and bundled with
-    <a href="https://vitejs.dev/guide/features.html" target="_blank">Vite</a>.
-    The recommended IDE setup is
-    <a href="https://code.visualstudio.com/" target="_blank">VSCode</a> +
-    <a href="https://github.com/johnsoncodehk/volar" target="_blank">Volar</a>.
-    If you need to test your components and web pages, check out
-    <a href="https://www.cypress.io/" target="_blank">Cypress</a> and
-    <a href="https://on.cypress.io/component" target="_blank"
-      >Cypress Component Testing</a
-    >.
-
-    <br />
-
-    More instructions are available in <code>README.md</code>.
+    Navigate through our family memories with our intuitive slideshow controls.
+    Watch videos, view photos, and experience our special recordings.
+    The interface is designed to be simple yet meaningful, just like the
+    original memory box that inspired it.
   </WelcomeItem>
 
   <WelcomeItem>
     <template #icon>
       <EcosystemIcon />
     </template>
-    <template #heading>Ecosystem</template>
+    <template #heading>Memory Collection</template>
 
-    Get official tools and libraries for your project:
-    <a target="_blank" href="https://pinia.vuejs.org/">Pinia</a>,
-    <a target="_blank" href="https://router.vuejs.org/">Vue Router</a>,
-    <a target="_blank" href="https://test-utils.vuejs.org/">Vue Test Utils</a>,
-    and
-    <a target="_blank" href="https://github.com/vuejs/devtools">Vue Dev Tools</a
-    >. If you need more resources, we suggest paying
-    <a target="_blank" href="https://github.com/vuejs/awesome-vue"
-      >Awesome Vue</a
-    >
-    a visit.
+    Our memories are carefully curated from both local storage and Google Photos,
+    ensuring that our most precious moments are preserved and easily accessible.
+    The four-panel display rotates through different memory collections, each
+    telling its own story.
   </WelcomeItem>
 
   <WelcomeItem>
     <template #icon>
       <CommunityIcon />
     </template>
-    <template #heading>Community</template>
+    <template #heading>Family Harmony</template>
 
-    Got stuck? Ask your question on
-    <a target="_blank" href="https://chat.vuejs.org">Vue Land</a>, our official
-    Discord server, or
-    <a target="_blank" href="https://stackoverflow.com/questions/tagged/vue.js"
-      >StackOverflow</a
-    >. You should also subscribe to
-    <a target="_blank" href="https://news.vuejs.org">our mailing list</a> and
-    follow the official
-    <a target="_blank" href="https://twitter.com/vuejs">@vuejs</a>
-    twitter account for latest news in the Vue world.
+    Experience our unique take on "You Are My Sunshine" - where each family member's
+    individual recording comes together to create a beautiful whole. It's our way of
+    showing that even when apart, we're always together in harmony.
   </WelcomeItem>
 
   <WelcomeItem>
     <template #icon>
       <SupportIcon />
     </template>
-    <template #heading>We love you</template>
+    <template #heading>Dear Mom</template>
 
-    Thank you for all the love and never giving up on your kids 
-    <br />
-    (even when they weren't exactly angels).
-    <br />
-    We love you to bits and are blessed to have such a loving and caring mother
+    This project is our way of preserving and sharing our precious memories with you.
+    Unlike the original box that lost its recording to a curious toddler, these
+    memories are here to stay. Thank you for giving us so many beautiful moments
+    to remember. We love you!
   </WelcomeItem>
 </template>
