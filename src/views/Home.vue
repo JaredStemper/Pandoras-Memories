@@ -1,8 +1,8 @@
 <script setup>
 import TheWelcome from "@/components/TheWelcome.vue";
-import LogoSVG from "@/assets/evil-eye.svg";
-import HelloWorld from "@/components/HelloWorld.vue";
-import { RouterLink } from "vue-router";
+import LogoSVG from "@/assets/evil-eye.svg?component";
+import SiteTitle from "@/components/SiteTitle.vue";
+import MainNav from "@/components/MainNav.vue";
 </script>
 
 <template>
@@ -12,12 +12,8 @@ import { RouterLink } from "vue-router";
     </div>
     <div class="right-pane">
       <div class="header-section">
-        <HelloWorld msg="Pandora's Memories" />
-        <nav>
-          <RouterLink to="/">Home</RouterLink>
-          <RouterLink to="/about">About</RouterLink>
-          <RouterLink to="/slideshow">Slideshow</RouterLink>
-        </nav>
+        <SiteTitle :showLogo="false" :large="true" />
+        <MainNav align="center" />
       </div>
       <TheWelcome />
     </div>
@@ -67,39 +63,6 @@ import { RouterLink } from "vue-router";
   flex-direction: column;
   align-items: center;
   text-align: center;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 1rem;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-@media (min-width: 1024px) {
-  nav {
-    text-align: center;
-    font-size: 1rem;
-    padding: 1rem 0;
-  }
 }
 
 @media (max-width: 1024px) {

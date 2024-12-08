@@ -9,7 +9,10 @@
         delay: 3000,
         disableOnInteraction: false,
       }"
-      :pagination="{ clickable: true }"
+      :pagination="{
+        clickable: true,
+        el: '.swiper-pagination',
+      }"
       :navigation="true"
       class="w-full max-w-4xl mx-auto"
     >
@@ -22,7 +25,8 @@
             class="w-full h-full object-cover"
             :autoplay="isVideoPlaying"
             loop
-            muted
+            :muted="false"
+            controls
             @ended="handleVideoEnd"
             ref="videoRefs"
           ></video>
@@ -40,6 +44,9 @@
         </div>
       </swiper-slide>
     </swiper>
+    
+    <!-- Move pagination outside the swiper -->
+    <div class="swiper-pagination pagination-custom"></div>
     
     <!-- Custom Controls -->
     <div class="custom-controls">
@@ -143,30 +150,47 @@ onMounted(async () => {
   }
 });
 
+const handleSlideChange = () => {
+  if (!swiperInstance) return;
+  
+  // Pause all videos first
+  pauseAllVideos();
+  
+  // Get current slide and check if it's a video
+  const currentSlide = slides.value[swiperInstance.realIndex];
+  currentSlideIsVideo.value = currentSlide?.type === 'video';
+  
+  // Only play video if it's the current slide and video playback is enabled
+  if (currentSlideIsVideo.value && isVideoPlaying.value) {
+    playCurrentVideo();
+  }
+};
+
 const onSwiper = (swiper) => {
   swiperInstance = swiper;
   
   // Handle slide change
-  swiper.on('slideChange', () => {
-    const currentSlide = slides.value[swiper.realIndex];
-    currentSlideIsVideo.value = currentSlide?.type === 'video';
-    
-    if (currentSlideIsVideo.value && isVideoPlaying.value) {
-      playCurrentVideo();
-    }
-  });
+  swiper.on('slideChange', handleSlideChange);
+  // Initial check for first slide
+  handleSlideChange();
 };
 
 const pauseAllVideos = () => {
   document.querySelectorAll('video').forEach(video => {
     video.pause();
+    // Reset video to start
+    video.currentTime = 0;
   });
 };
 
 const playCurrentVideo = () => {
-  const currentSlide = swiperInstance?.slides[swiperInstance.activeIndex];
+  if (!swiperInstance) return;
+  
+  const currentSlide = swiperInstance.slides[swiperInstance.activeIndex];
   const video = currentSlide?.querySelector('video');
   if (video && isVideoPlaying.value) {
+    // Ensure video is at the start when playing
+    video.currentTime = 0;
     video.play();
   }
 };
@@ -270,5 +294,23 @@ const handleVideoEnd = () => {
 
 .control-btn:hover {
   background-color: rgba(255, 255, 255, 0.2);
+}
+
+.pagination-custom {
+  position: absolute;
+  bottom: 100px !important; /* Move above the video controls */
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+
+:deep(.swiper-pagination-bullet) {
+  background: var(--color-text);
+  opacity: 0.5;
+}
+
+:deep(.swiper-pagination-bullet-active) {
+  background: var(--color-text);
+  opacity: 1;
 }
 </style> 
