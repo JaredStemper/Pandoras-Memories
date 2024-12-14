@@ -1,4 +1,5 @@
 <script setup>
+import siteTitle from "@/components/siteTitle.vue";
 import TheWelcome from "@/components/TheWelcome.vue";
 import LogoSVG from "@/assets/evil-eye.svg";
 import { RouterLink } from "vue-router";
@@ -11,12 +12,7 @@ import { RouterLink } from "vue-router";
     </div>
     <div class="right-pane">
       <div class="header-section">
-        <TheWelcome msg="Pandora's Memories" />
-        <nav>
-          <RouterLink to="/">Home</RouterLink>
-          <RouterLink to="/about">About</RouterLink>
-          <RouterLink to="/slideshow">Slideshow</RouterLink>
-        </nav>
+        <siteTitle :large="true" :showLogo="false" />
       </div>
       <TheWelcome />
     </div>

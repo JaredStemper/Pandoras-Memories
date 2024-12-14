@@ -1,7 +1,8 @@
 <script setup>
 import LogoSVG from "@/assets/evil-eye.svg";
+import mainNav from "@/components/mainNav.vue";
 
-defineProps({
+const props = defineProps({
   showLogo: {
     type: Boolean,
     default: true
@@ -14,15 +15,31 @@ defineProps({
 </script>
 
 <template>
-  <div class="logo-section">
-    <LogoSVG v-if="showLogo" class="header-logo" alt="Greek Eye logo" />
-    <router-link to="/">
-      <h1 class="title green" :class="{ 'title-large': large }">Pandora's Memories</h1>
-    </router-link>
+  <div class="site-header">
+    <div class="header-content">
+      <div class="logo-section">
+        <LogoSVG v-if="props.showLogo" class="header-logo" alt="Greek Eye logo" />
+        <router-link to="/">
+          <h1 class="title green" :class="{ 'title-large': props.large }">Pandora's Memories</h1>
+        </router-link>
+      </div>
+      <mainNav align="center" />
+    </div>
   </div>
 </template>
 
 <style scoped>
+.site-header {
+  width: 100%;
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
 .logo-section {
   display: flex;
   align-items: center;

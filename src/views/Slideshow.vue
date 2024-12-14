@@ -1,83 +1,5 @@
-<template>
-  <div class="slideshow-container">
-    <swiper
-      @swiper="onSwiper"
-      :modules="[SwiperAutoplay, SwiperPagination, SwiperNavigation]"
-      :slides-per-view="1"
-      :loop="true"
-      :autoplay="{
-        delay: 3000,
-        disableOnInteraction: false,
-      }"
-      :pagination="{ clickable: true }"
-      :navigation="true"
-      class="w-full max-w-4xl mx-auto"
-    >
-      <swiper-slide v-for="(slide, index) in slides" :key="index">
-        <div class="relative h-[400px]">
-          <!-- Video Slide -->
-          <video
-            v-if="slide.type === 'video'"
-            :src="slide.src"
-            class="w-full h-full object-cover"
-            :autoplay="isVideoPlaying"
-            loop
-            muted
-            @ended="handleVideoEnd"
-            ref="videoRefs"
-          ></video>
-          <!-- Image Slide -->
-          <img
-            v-else
-            :src="slide.src"
-            :alt="slide.title"
-            class="w-full h-full object-cover"
-          />
-          <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-4 text-white">
-            <h3 class="text-xl font-bold">{{ slide.title }}</h3>
-            <p>{{ slide.description }}</p>
-          </div>
-        </div>
-      </swiper-slide>
-    </swiper>
-    
-    <!-- Custom Controls -->
-    <div class="custom-controls">
-      <button 
-        @click="previousSlide" 
-        class="control-btn"
-        aria-label="Previous slide"
-      >
-        <font-awesome-icon :icon="faBackward" />
-      </button>
-      <button 
-        @click="toggleSlideshow" 
-        class="control-btn"
-        :aria-label="isSlideshowPlaying ? 'Pause slideshow' : 'Play slideshow'"
-      >
-        <font-awesome-icon :icon="isSlideshowPlaying ? faPause : faPlay" />
-      </button>
-      <button 
-        @click="nextSlide" 
-        class="control-btn"
-        aria-label="Next slide"
-      >
-        <font-awesome-icon :icon="faForward" />
-      </button>
-      <!-- Video Control Button -->
-      <button 
-        v-if="currentSlideIsVideo"
-        @click="toggleVideo" 
-        class="control-btn"
-        :aria-label="isVideoPlaying ? 'Pause video' : 'Play video'"
-      >
-        <font-awesome-icon :icon="isVideoPlaying ? faStop : faPlay" />
-      </button>
-    </div>
-  </div>
-</template>
-
 <script setup>
+import PageHeader from "@/components/PageHeader.vue";
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Autoplay as SwiperAutoplay, Pagination as SwiperPagination, Navigation as SwiperNavigation } from 'swiper';
 import { ref, onMounted } from 'vue';
@@ -102,7 +24,7 @@ const currentSlideIsVideo = ref(false);
 // Function to determine media type based on file extension
 const getMediaType = (filename) => {
   const extension = filename.toLowerCase().split('.').pop();
-  const videoExtensions = ['mp4', 'webm', 'ogg'];
+  const videoExtensions = ['mp4', 'mp3', 'webm', 'ogg'];
   const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
   
   if (videoExtensions.includes(extension)) return 'video';
@@ -214,7 +136,98 @@ const handleVideoEnd = () => {
 };
 </script>
 
+<template>
+  <div class="slideshow-view">
+    <PageHeader />
+    <div class="slideshow-container">
+      <swiper
+        @swiper="onSwiper"
+        :modules="[SwiperAutoplay, SwiperPagination, SwiperNavigation]"
+        :slides-per-view="1"
+        :loop="true"
+        :autoplay="{
+          delay: 3000,
+          disableOnInteraction: false,
+        }"
+        :pagination="false"
+        :navigation="true"
+        class="w-full max-w-4xl mx-auto"
+      >
+        <swiper-slide v-for="(slide, index) in slides" :key="index">
+          <div class="relative h-[400px]">
+            <!-- Video Slide -->
+            <video
+              v-if="slide.type === 'video'"
+              :src="slide.src"
+              class="w-full h-full object-cover"
+              :autoplay="isVideoPlaying"
+              loop
+              muted
+              @ended="handleVideoEnd"
+              ref="videoRefs"
+            ></video>
+            <!-- Image Slide -->
+            <img
+              v-else
+              :src="slide.src"
+              :alt="slide.title"
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-4 text-white">
+              <h3 class="text-xl font-bold">{{ slide.title }}</h3>
+              <p>{{ slide.description }}</p>
+            </div>
+          </div>
+        </swiper-slide>
+      </swiper>
+      
+      <!-- Custom Controls -->
+      <div class="custom-controls">
+        <button 
+          @click="previousSlide" 
+          class="control-btn"
+          aria-label="Previous slide"
+        >
+          <font-awesome-icon :icon="faBackward" />
+        </button>
+        <button 
+          @click="toggleSlideshow" 
+          class="control-btn"
+          :aria-label="isSlideshowPlaying ? 'Pause slideshow' : 'Play slideshow'"
+        >
+          <font-awesome-icon :icon="isSlideshowPlaying ? faPause : faPlay" />
+        </button>
+        <button 
+          @click="nextSlide" 
+          class="control-btn"
+          aria-label="Next slide"
+        >
+          <font-awesome-icon :icon="faForward" />
+        </button>
+        <!-- Video Control Button -->
+        <button 
+          v-if="currentSlideIsVideo"
+          @click="toggleVideo" 
+          class="control-btn"
+          :aria-label="isVideoPlaying ? 'Pause video' : 'Play video'"
+        >
+          <font-awesome-icon :icon="isVideoPlaying ? faStop : faPlay" />
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+
+
 <style scoped>
+.slideshow-view {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  gap: 2rem;
+  padding: 2rem;
+}
+
 .swiper {
   --swiper-theme-color: #fff;
   --swiper-navigation-size: 25px;
@@ -270,5 +283,10 @@ const handleVideoEnd = () => {
 
 .control-btn:hover {
   background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Hide pagination dots */
+:deep(.swiper-pagination) {
+  display: none;
 }
 </style> 
