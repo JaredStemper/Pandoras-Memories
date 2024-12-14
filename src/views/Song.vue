@@ -1,21 +1,22 @@
 <script setup>
 import PageHeader from "@/components/PageHeader.vue";
 import { ref, onMounted } from 'vue';
+import logger from '@/utils/logger';
 
 const videoPlayer = ref(null);
 const videoLoaded = ref(false);
 const videoError = ref(false);
-const videoSrc = ref('/videos/riksrisk.mp4');
+const videoSrc = ref('public/test.mp4');
 const videoState = ref('');
 
 const handleVideoError = (error) => {
-  console.error('Error playing video:', error);
+  logger.error('Error playing video:', error);
   videoError.value = true;
 };
 
 const handleVideoLoaded = () => {
   videoLoaded.value = true;
-  console.log('Video loaded successfully');
+  logger.info('Video loaded successfully');
 };
 
 const handleVideoStateChange = () => {
@@ -28,7 +29,7 @@ const handleVideoStateChange = () => {
       paused: videoPlayer.value.paused,
       ended: videoPlayer.value.ended,
     };
-    console.log('Video state:', videoState.value);
+    logger.debug('Video state:', videoState.value);
   }
 };
 
@@ -36,9 +37,9 @@ onMounted(() => {
   if (videoPlayer.value) {
     videoPlayer.value.addEventListener('error', handleVideoError);
     videoPlayer.value.addEventListener('loadeddata', handleVideoLoaded);
-    videoPlayer.value.addEventListener('loadedmetadata', () => console.log('Metadata loaded'));
-    videoPlayer.value.addEventListener('play', () => console.log('Video started playing'));
-    videoPlayer.value.addEventListener('pause', () => console.log('Video paused'));
+    videoPlayer.value.addEventListener('loadedmetadata', () => logger.debug('Metadata loaded'));
+    videoPlayer.value.addEventListener('play', () => logger.debug('Video started playing'));
+    videoPlayer.value.addEventListener('pause', () => logger.debug('Video paused'));
     videoPlayer.value.addEventListener('timeupdate', handleVideoStateChange);
     
     // Force video type

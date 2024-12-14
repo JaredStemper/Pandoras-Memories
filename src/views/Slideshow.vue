@@ -11,6 +11,7 @@ import {
   faBackward,
   faStop
 } from '@fortawesome/free-solid-svg-icons';
+import logger from '@/utils/logger';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -38,12 +39,17 @@ const slides = ref([]);
 
 // Load all media files
 const loadMediaFiles = async () => {
+  logger.info('Starting media files loading');
   const mediaPromises = Object.entries(mediaFiles).map(async ([path, importFunc]) => {
     const filename = path.split('/').pop();
     const type = getMediaType(filename);
     
-    if (!type) return null; // Skip files that aren't images or videos
+    if (!type) {
+      logger.warn(`Skipping unsupported file: ${filename}`);
+      return null;
+    }
     
+    logger.debug(`Loading media file: ${filename} of type: ${type}`);
     const module = await importFunc();
     return {
       type,
@@ -54,11 +60,13 @@ const loadMediaFiles = async () => {
   });
 
   const loadedMedia = (await Promise.all(mediaPromises)).filter(item => item !== null);
+  logger.info(`Successfully loaded ${loadedMedia.length} media files`);
   slides.value = loadedMedia;
 };
 
 // Load media files when component mounts
 onMounted(async () => {
+  logger.debug('Slideshow component mounted');
   await loadMediaFiles();
   if (isVideoPlaying.value) {
     playCurrentVideo();
@@ -67,11 +75,13 @@ onMounted(async () => {
 
 const onSwiper = (swiper) => {
   swiperInstance = swiper;
+  logger.debug('Swiper instance initialized');
   
   // Handle slide change
   swiper.on('slideChange', () => {
     const currentSlide = slides.value[swiper.realIndex];
     currentSlideIsVideo.value = currentSlide?.type === 'video';
+    logger.debug(`Slide changed to index ${swiper.realIndex}, type: ${currentSlide?.type}`);
     
     if (currentSlideIsVideo.value && isVideoPlaying.value) {
       playCurrentVideo();
@@ -80,6 +90,7 @@ const onSwiper = (swiper) => {
 };
 
 const pauseAllVideos = () => {
+  logger.debug('Pausing all videos');
   document.querySelectorAll('video').forEach(video => {
     video.pause();
   });
@@ -89,12 +100,16 @@ const playCurrentVideo = () => {
   const currentSlide = swiperInstance?.slides[swiperInstance.activeIndex];
   const video = currentSlide?.querySelector('video');
   if (video && isVideoPlaying.value) {
-    video.play();
+    logger.debug('Playing current video');
+    video.play().catch(error => {
+      logger.error('Error playing video:', error);
+    });
   }
 };
 
 const toggleVideo = () => {
   isVideoPlaying.value = !isVideoPlaying.value;
+  logger.debug(`Video playback ${isVideoPlaying.value ? 'enabled' : 'disabled'}`);
   if (isVideoPlaying.value) {
     playCurrentVideo();
   } else {
@@ -106,6 +121,7 @@ const toggleSlideshow = () => {
   if (!swiperInstance) return;
   
   isSlideshowPlaying.value = !isSlideshowPlaying.value;
+  logger.debug(`Slideshow ${isSlideshowPlaying.value ? 'started' : 'stopped'}`);
   
   if (isSlideshowPlaying.value) {
     swiperInstance.autoplay.start();
@@ -116,17 +132,20 @@ const toggleSlideshow = () => {
 
 const nextSlide = () => {
   if (swiperInstance) {
+    logger.debug('Moving to next slide');
     swiperInstance.slideNext();
   }
 };
 
 const previousSlide = () => {
   if (swiperInstance) {
+    logger.debug('Moving to previous slide');
     swiperInstance.slidePrev();
   }
 };
 
 const handleVideoEnd = () => {
+  logger.debug('Video ended');
   if (isSlideshowPlaying.value && swiperInstance) {
     swiperInstance.slideNext();
   } else {
