@@ -1,3 +1,5 @@
+about.vue
+
 <script setup>
 import PageHeader from "@/components/PageHeader.vue";
 </script>
@@ -11,11 +13,13 @@ import PageHeader from "@/components/PageHeader.vue";
       <div class="story-section">
         <h2>The Origin Story</h2>
         <p>
-          It all started with a curious toddler and a small memory box. This box was special - it had four pictures on its sides and a magical button that, when pressed, played back the voices of my two sisters singing "You Are My Sunshine." Like any inquisitive child, I discovered a small recording button on the bottom. Without much thought, I recorded over my sisters' singing with an assortment of weird noises, heavy breathing, and what I'm sure I thought were hilarious sounds at the time.
+          It all started when a curious toddler discovered a small memory box. This box was special - it had four pictures on its sides and a magical button that, when pressed, played back the voices of my two sisters singing "You Are My Sunshine." A properly inquisitive child, I discovered a small recording button on the bottom; without much thought, I recorded over my sisters' singing with an assortment of weird noises, heavy breathing, and what I'm sure I thought were hilarious sounds at the time.
         </p>
-        
         <p>
-          While the original box is long gone, its memory has stayed with me through the years. This project is my attempt to recreate that box - but with a special twist. This time, when you open Pandora's Memories, nothing leaves except the time you spend with it.
+          While the original box is long gone, its memory has stayed with me through the years. This project is my attempt to recreate that box with a special twist.
+        </p>
+        <p>
+          This time, when you open Pandora's Memories, nothing leaves except the time you spend with it.
         </p>
       </div>
 

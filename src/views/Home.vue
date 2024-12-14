@@ -1,7 +1,6 @@
 <script setup>
 import TheWelcome from "@/components/TheWelcome.vue";
 import LogoSVG from "@/assets/evil-eye.svg";
-import HelloWorld from "@/components/HelloWorld.vue";
 import { RouterLink } from "vue-router";
 </script>
 
@@ -12,7 +11,7 @@ import { RouterLink } from "vue-router";
     </div>
     <div class="right-pane">
       <div class="header-section">
-        <HelloWorld msg="Pandora's Memories" />
+        <TheWelcome msg="Pandora's Memories" />
         <nav>
           <RouterLink to="/">Home</RouterLink>
           <RouterLink to="/about">About</RouterLink>
